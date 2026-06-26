@@ -1,0 +1,92 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mailing OXXO Remesas</title>
+  <style>
+    body { margin: 0; padding: 0; background: #f4f4f4; }
+    .wrapper { max-width: 600px; margin: 0 auto; }
+    .img-block { display: block; }
+    img { display: block; width: 100%; border: 0; }
+    .body-wrap { position: relative; display: block; }
+    .terms-overlay {
+      position: absolute;
+      top: 88%;
+      left: 18%;
+      width: 64%;
+      height: 5%;
+      display: block;
+      z-index: 10;
+    }
+  </style>
+</head>
+<body>
+  <span style="display:none;font-size:1px;color:#ffffff;max-height:0;overflow:hidden;">${payload.preview_text}</span>
+  <div class="wrapper">
+
+    <!-- HEADER: deeplink -->
+    <div class="img-block">
+      <img src="https://raw.githubusercontent.com/ulisesgarciamiramon-source/-meli-email-assets/main/header_baz_bancoppel_email_1.jpg" alt="header">
+    </div>
+
+    <!-- BODY: deeplink + terms overlay -->
+    <div class="body-wrap">
+      <img src="https://raw.githubusercontent.com/ulisesgarciamiramon-source/-meli-email-assets/main/body_baz_bancoppel_email_1.jpg" alt="body">
+      <a class="terms-overlay"
+         href="https://api.mercadopago.com/v2/discounts/campaign/13504648/terms/html"
+         target="_blank"
+         onclick="event.stopPropagation();">
+      </a>
+    </div>
+
+    <!-- FOOTER: deeplink -->
+    <div class="img-block">
+      <a href="https://www.mercadopago.com.mx/money-inflows/remittances/router?redirect=hub&from=marketing&flow=xmas-campaign" target="_blank" style="display:block;">
+        <img src="https://raw.githubusercontent.com/ulisesgarciamiramon-source/-meli-email-assets/main/footer_baz_bancoppel_email_1.jpg" alt="footer">
+      </a>
+    </div>
+
+  </div>
+
+  <script>
+    var DEEPLINK   = 'mercadopago://webview?webkit-engine=2&url=https%3A%2F%2Fwww.mercadopago.com.mx%2Fmoney-inflows%2Fremittances%2Frouter%3Fredirect%3Dhub';
+    var IOS_STORE  = 'https://apps.apple.com/mx/app/mercado-pago-cuenta-digital/id925436649';
+    var AND_STORE  = 'https://play.google.com/store/apps/details?id=com.mercadopago.wallet&hl=es_MX';
+    var DESKTOP_FB = 'https://www.mercadopago.com.mx/';
+    var DELAY      = 1000;
+
+    function isIOS()     { return /iPhone|iPad|iPod/i.test(navigator.userAgent); }
+    function isAndroid() { return /Android/i.test(navigator.userAgent); }
+
+    function handleDeeplink() {
+      var storeUrl;
+      if (isIOS())          storeUrl = IOS_STORE;
+      else if (isAndroid()) storeUrl = AND_STORE;
+      else                  storeUrl = DESKTOP_FB;
+
+      window.location.href = DEEPLINK;
+
+      setTimeout(function() {
+        window.location.href = storeUrl;
+      }, DELAY);
+    }
+  </script>
+
+    <table width="600" cellpadding="0" cellspacing="0" border="0" align="center" style="max-width:600px; margin:0 auto;">
+      <tr>
+        <td align="center" style="font-family: Arial, sans-serif; font-size:12px; color:#8c8c8c; padding:24px 10px; text-align:center; background:#ffffff;">
+          <a href="{{ unsubscribeUrl }}" target="_blank" style="color:#3483fa; text-decoration:none;">Administrar preferencias de emails</a><br><br>
+          Conoce <a href="https://www.mercadopago.com.mx/privacidad" target="_blank" style="color:#3483fa; text-decoration:none;">cómo cuidamos tu privacidad</a>.
+        </td>
+      </tr>
+    </table>
+</body>
+</html>
+
+
+
+
+
+
+
